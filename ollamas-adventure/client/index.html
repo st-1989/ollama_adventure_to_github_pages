@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama's Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-sky-400">
+
+    <div id="game-container">
+        <!-- Parallax Backgrounds -->
+        <div id="bg-far" class="parallax-bg"></div>
+        <div id="bg-mid" class="parallax-bg"></div>
+        <div id="bg-near" class="parallax-bg"></div>
+
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- UI -->
+        <div id="ui-container" class="flex flex-col justify-center items-center text-center p-4">
+            <!-- Score Display (Top) -->
+            <div id="score-display" class="absolute top-5 left-5 text-3xl lg:text-4xl hidden">
+                Score: <span id="score">0</span>
+            </div>
+            <div id="highscore-display" class="absolute top-5 right-5 text-3xl lg:text-4xl hidden">
+                High Score: <span id="highscore">0</span>
+            </div>
+
+            <!-- Start Menu -->
+            <div id="start-menu"
+                class="flex flex-col items-center gap-4 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl">
+                <h1 class="text-6xl lg:text-8xl font-bold text-yellow-300">Ollama's Adventure</h1>
+                <p class="text-xl lg:text-2xl mt-2">Help Ollama the alpaca jump over the spiky cacti!</p>
+                <p class="text-lg lg:text-xl font-bold">Press SPACE or TAP to Jump</p>
+                <button id="start-button"
+                    class="button text-3xl lg:text-4xl font-bold text-white px-10 py-5 mt-4 rounded-full">Start
+                    Game</button>
+            </div>
+
+            <!-- Game Over Menu -->
+            <div id="game-over-menu"
+                class="hidden flex-col items-center gap-2 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl">
+                <h2 class="text-5xl lg:text-7xl font-bold text-red-500">Game Over!</h2>
+                <p class="text-2xl lg:text-3xl">Your Score: <span id="final-score">0</span></p>
+                <button id="retry-button"
+                    class="button text-3xl lg:text-4xl font-bold text-white px-10 py-5 mt-4 rounded-full">Try
+                    Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
