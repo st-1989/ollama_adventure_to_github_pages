@@ -31,6 +31,13 @@
             <div id="highscore-display" class="absolute top-5 right-5 text-3xl lg:text-4xl hidden">
                 High Score: <span id="highscore">0</span>
             </div>
+            <div id="stage-display" class="stage-label hidden">
+                Stage: <span id="stage-name"></span>
+            </div>
+            <div id="stage-banner" class="stage-banner hidden"></div>
+            <div id="powerup-display" class="powerup-display hidden">
+                <span id="shield-status" class="powerup-status">Inactive Shield</span>
+            </div>
 
             <!-- Start Menu -->
             <div id="start-menu"
@@ -48,6 +55,10 @@
                 class="hidden flex-col items-center gap-2 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl">
                 <h2 class="text-5xl lg:text-7xl font-bold text-red-500">Game Over!</h2>
                 <p class="text-2xl lg:text-3xl">Your Score: <span id="final-score">0</span></p>
+                <div id="achievement-container" class="achievement-container hidden">
+                    <h3 class="text-2xl font-semibold text-yellow-200 text-left w-full">Run Highlights</h3>
+                    <ul id="achievement-list" class="achievement-list"></ul>
+                </div>
                 <div class="flex flex-col w-full max-w-md gap-3 text-white">
                     <h3 class="text-2xl font-semibold text-yellow-200 text-left">Share your run</h3>
                     <p class="text-sm text-gray-200 text-left">Send friends your best streak so they can try to beat
