@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const finalScoreEl = document.getElementById('final-score');
             const startButton = document.getElementById('start-button');
             const retryButton = document.getElementById('retry-button');
+            const shareMessage = document.getElementById('share-message');
+            const copyShareButton = document.getElementById('copy-share-button');
+            const nativeShareButton = document.getElementById('native-share-button');
+            const shareStatus = document.getElementById('share-status');
 
             // Parallax Backgrounds
             const bgFar = document.getElementById('bg-far');
@@ -283,6 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 obstacles = [];
                 obstacleTimer = 0;
                 scoreMilestone = 100;
+                 shareStatus.classList.add('hidden');
+                 shareStatus.textContent = '';
+                 shareStatus.classList.remove('text-red-300');
+                 shareStatus.classList.add('text-green-300');
+                 copyShareButton.disabled = false;
+                 copyShareButton.textContent = 'Copy text';
+                 if (nativeShareButton) {
+                     nativeShareButton.disabled = false;
+                     nativeShareButton.textContent = 'Share';
+                 }
 
                 ollama.y = height - 20 - ollama.height;
                 ollama.velocityY = 0;
@@ -313,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 highscoreDisplay.classList.add('hidden');
                 gameOverMenu.classList.remove('hidden');
                 gameOverMenu.classList.add('flex');
+                populateShareMessage();
             }
 
             // --- Event Listeners and Initialization ---
@@ -337,6 +352,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             startButton.addEventListener('click', startGame);
             retryButton.addEventListener('click', startGame);
+
+            copyShareButton.addEventListener('click', async () => {
+                const text = shareMessage.value;
+                if (!text) {
+                    return;
+                }
+
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        shareMessage.select();
+                        document.execCommand('copy');
+                    }
+                    shareStatus.textContent = 'Copied! Share it anywhere.';
+                    shareStatus.classList.remove('hidden');
+                    shareStatus.classList.remove('text-red-300');
+                    shareStatus.classList.add('text-green-300');
+                } catch (error) {
+                    shareStatus.textContent = 'Could not copy. Try selecting the text manually.';
+                    shareStatus.classList.remove('hidden');
+                    shareStatus.classList.add('text-red-300');
+                    shareStatus.classList.remove('text-green-300');
+                }
+            });
+
+            if (nativeShareButton) {
+                if (!navigator.share) {
+                    nativeShareButton.classList.add('hidden');
+                } else {
+                    nativeShareButton.addEventListener('click', async () => {
+                        if (!navigator.share) return;
+                        try {
+                            await navigator.share({
+                                title: "Ollama's Adventure",
+                                text: shareMessage.value,
+                                url: window.location.href
+                            });
+                        } catch (error) {
+                            // User cancelled or share failed; no status change needed
+                        }
+                    });
+                }
+            }
 
             function resize() {
                 width = window.innerWidth;
@@ -379,6 +438,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             window.addEventListener('resize', resize);
+
+            function populateShareMessage() {
+                if (!shareMessage) return;
+                const baseUrl = `${window.location.origin}${window.location.pathname}`;
+                const message = `I just scored ${score} in Ollama's Adventure! Think you can beat me? Play now: ${baseUrl}`;
+                shareMessage.value = message;
+            }
 
             // Initial setup
             generateBackgrounds();

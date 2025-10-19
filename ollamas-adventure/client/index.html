@@ -34,7 +34,7 @@
 
             <!-- Start Menu -->
             <div id="start-menu"
-                class="flex flex-col items-center gap-4 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl">
+                class="flex flex-col items-center gap-4 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl w-full max-w-3xl">
                 <h1 class="text-6xl lg:text-8xl font-bold text-yellow-300">Ollama's Adventure</h1>
                 <p class="text-xl lg:text-2xl mt-2">Help Ollama the alpaca jump over the spiky cacti!</p>
                 <p class="text-lg lg:text-xl font-bold">Press SPACE or TAP to Jump</p>
@@ -48,13 +48,28 @@
                 class="hidden flex-col items-center gap-2 p-8 bg-black bg-opacity-40 rounded-3xl shadow-2xl">
                 <h2 class="text-5xl lg:text-7xl font-bold text-red-500">Game Over!</h2>
                 <p class="text-2xl lg:text-3xl">Your Score: <span id="final-score">0</span></p>
+                <div class="flex flex-col w-full max-w-md gap-3 text-white">
+                    <h3 class="text-2xl font-semibold text-yellow-200 text-left">Share your run</h3>
+                    <p class="text-sm text-gray-200 text-left">Send friends your best streak so they can try to beat
+                        it.</p>
+                    <textarea id="share-message"
+                        class="w-full h-24 resize-none px-4 py-3 rounded-lg text-black font-semibold tracking-wide"
+                        readonly></textarea>
+                    <div class="flex flex-wrap gap-3">
+                        <button id="copy-share-button"
+                            class="button px-6 py-3 rounded-lg font-bold text-white min-w-[130px]">Copy
+                            text</button>
+                        <button id="native-share-button"
+                            class="button px-6 py-3 rounded-lg font-bold text-white min-w-[130px]">Share</button>
+                    </div>
+                    <p id="share-status" class="text-sm text-green-300 hidden"></p>
+                </div>
                 <button id="retry-button"
                     class="button text-3xl lg:text-4xl font-bold text-white px-10 py-5 mt-4 rounded-full">Try
                     Again</button>
             </div>
         </div>
     </div>
-
     <script src="js/main.js"></script>
 </body>
 
